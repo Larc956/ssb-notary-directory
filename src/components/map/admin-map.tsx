@@ -31,11 +31,16 @@ function ClickToPlace({ setPosition }: { setPosition: (pos: [number, number]) =>
 // NEW: This forces the map to smoothly pan to the new coordinates when the estimation finishes
 function CenterMapOnPosition({ position }: { position: [number, number] | null }) {
   const map = useMap();
+  const hasCentered = useRef(false);
+
   useEffect(() => {
-    if (position) {
+    // Only fly if we have a position and haven't centered yet
+    if (position && !hasCentered.current) {
       map.flyTo(position, 15, { animate: true });
+      hasCentered.current = true;
     }
   }, [position, map]);
+  
   return null;
 }
 
