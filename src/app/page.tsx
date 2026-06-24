@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import dynamic from "next/dynamic";
+import ListView from "@/components/ListView";
 // import Header from "@/components/Header";
 // import ListView from "@/components/ListView";
 
@@ -44,7 +45,7 @@ export default function Home() {
         {activeView === "map" ? (
           <MapView />
         ) : (
-          <div className="p-4 text-center text-gray-500">List View Component Goes Here</div>
+          <ListView />
         )}
       </div>
     </main>
