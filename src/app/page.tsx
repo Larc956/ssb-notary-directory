@@ -17,12 +17,12 @@ export default function Home() {
   return (
     <main className="flex h-screen flex-col bg-white">
       {/* Header component will go here */}
-      <div className="p-4 border-b">
+      <div className="p-4 border-b relative z-20 bg-white">
          <h1 className="text-2xl font-bold text-brand-blue">SSB Directory</h1>
       </div>
 
       {/* The Toggle Switch */}
-      <div className="flex justify-center p-3 bg-brand-light">
+      <div className="flex justify-center p-3 bg-brand-light relative z-20">
         <div className="flex bg-white rounded-full shadow-sm p-1">
           <button 
             onClick={() => setActiveView("map")}
