@@ -67,10 +67,13 @@ export default async function AdminDashboard() {
                   </Badge>
                 </TableCell>
                 <TableCell className="text-right">
-                  <Button variant="ghost" size="sm" asChild>
-                    {/* We will build this edit page next! */}
+                {loc.id ? (
+                    <Button variant="ghost" size="sm" asChild>
                     <Link href={`/admin/location/${loc.id}`}>Edit</Link>
-                  </Button>
+                    </Button>
+                ) : (
+                    <Badge variant="destructive">Missing ID</Badge>
+                )}
                 </TableCell>
               </TableRow>
             ))}
