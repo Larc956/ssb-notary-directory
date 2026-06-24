@@ -30,4 +30,12 @@ export interface CoreLocation {
   verification_status: VerificationStatus;
   active_latitude: number | null;
   active_longitude: number | null;
+  
+  // NEW COLUMNS ADDED:
+  fee_depends_on_copies: boolean;
+  student_discount_fee_text: string | null;
+  bulk_discount_min_docs: number | null;
+  bulk_discount_fee: number | null;
+  feedback: string | null;
+  verification_notes: string | null;
 }

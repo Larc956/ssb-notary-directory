@@ -1,24 +1,31 @@
 "use client";
 
 import dynamic from "next/dynamic";
+import { Skeleton } from "@/components/ui/skeleton";
 import type { CoreLocation } from "@/lib/types/location";
 
-const PublicMap = dynamic(
-  () => import("@/components/map/public-map").then((mod) => mod.PublicMap),
-  {
+const DynamicMap = dynamic(
+  () => import("./public-map").then((mod) => mod.PublicMap),
+  { 
     ssr: false,
-    loading: () => (
-      <div className="flex h-[70vh] w-full items-center justify-center rounded-2xl border bg-slate-100 text-slate-500">
-        Loading map...
-      </div>
-    ),
+    loading: () => <Skeleton className="h-[60vh] min-h-[400px] w-full rounded-2xl border border-slate-300" />
   }
 );
 
 type PublicMapShellProps = {
   locations: CoreLocation[];
+  userLocation: [number, number] | null;
+  setUserLocation: (loc: [number, number]) => void;
+  onSelectLocation: (location: CoreLocation) => void; // <-- ADD THIS
 };
 
-export function PublicMapShell({ locations }: PublicMapShellProps) {
-  return <PublicMap locations={locations} />;
+export function PublicMapShell({ locations, userLocation, setUserLocation, onSelectLocation }: PublicMapShellProps) {
+  return (
+    <DynamicMap 
+      locations={locations} 
+      userLocation={userLocation} 
+      setUserLocation={setUserLocation} 
+      onSelectLocation={onSelectLocation} // <-- ADD THIS
+    />
+  );
 }

@@ -1,58 +1,43 @@
-import type { CoreLocation } from "@/lib/types/location";
+export type VerificationStatus =
+  | "approved"
+  | "under_review"
+  | "unverified"
+  | "archived";
 
-export const mockLocations: CoreLocation[] = [
-  {
-    id: "1",
-    name: "Ken Notarial Services",
-    branch_name: "Main Branch - Batasan Hills",
-    display_name: "Ken Notarial Services - Main Branch - Batasan Hills",
-    raw_address: "001 Kalayaan B St., corner IBP Rd., Batasan Hills, Quezon City",
-    raw_city: "Quezon City",
-    raw_province: "Metro Manila",
-    raw_landmarks: null,
-    office_hours_text: "Monday to Sunday, 7:00 AM - 6:30 PM",
-    contact_numbers_text: "0930 099 3389",
-    email: "kennotarialservices@gmail.com",
-    facebook_page: "facebook.com/notarypublicquezoncity",
-    standard_fee_text: "₱100-150",
-    standard_fee_min: 100,
-    standard_fee_max: 150,
-    student_discount_available: true,
-    offers_walk_in: true,
-    offers_online: true,
-    offers_courier: false,
-    accepts_cash: true,
-    accepts_gcash: true,
-    accepts_bank_transfer: true,
-    verification_status: "approved",
-    active_latitude: 14.6989,
-    active_longitude: 121.0918,
-  },
-  {
-    id: "2",
-    name: "Manila City Hall",
-    branch_name: null,
-    display_name: "Manila City Hall",
-    raw_address: "Padre Burgos Ave, Ermita, City of Manila",
-    raw_city: "Manila",
-    raw_province: "Metro Manila",
-    raw_landmarks: "Near Kartilya ng Katipunan and LRT 1 Central Station",
-    office_hours_text: "Monday to Friday, 7:00 AM - 4:00 PM",
-    contact_numbers_text: null,
-    email: "manilapublicinfo@gmail.com",
-    facebook_page: "facebook.com/cityhallmanila",
-    standard_fee_text: "₱0 (Free)",
-    standard_fee_min: 0,
-    standard_fee_max: 0,
-    student_discount_available: false,
-    offers_walk_in: true,
-    offers_online: false,
-    offers_courier: false,
-    accepts_cash: false,
-    accepts_gcash: false,
-    accepts_bank_transfer: false,
-    verification_status: "approved",
-    active_latitude: 14.5896,
-    active_longitude: 120.9817,
-  },
-];
+export interface CoreLocation {
+  id: string;
+  name: string;
+  branch_name: string | null;
+  display_name: string;
+  raw_address: string;
+  raw_city: string | null;
+  raw_province: string | null;
+  raw_landmarks: string | null;
+  office_hours_text: string | null;
+  contact_numbers_text: string | null;
+  email: string | null;
+  facebook_page: string | null;
+  standard_fee_text: string | null;
+  standard_fee_min: number | null;
+  standard_fee_max: number | null;
+  student_discount_available: boolean;
+  offers_walk_in: boolean;
+  offers_online: boolean;
+  offers_courier: boolean;
+  accepts_cash: boolean;
+  accepts_gcash: boolean;
+  accepts_bank_transfer: boolean;
+  verification_status: VerificationStatus;
+  active_latitude: number | null;
+  active_longitude: number | null;
+  
+  fee_depends_on_copies: boolean;
+  student_discount_fee_text: string | null;
+  
+  // UPDATED: These are now strings instead of numbers
+  bulk_discount_min_docs: string | null; 
+  bulk_discount_fee: string | null;
+  
+  feedback: string | null;
+  verification_notes: string | null;
+}
