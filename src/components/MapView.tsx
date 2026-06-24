@@ -3,7 +3,7 @@
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
-import { notariesData } from "@/data/notaries"; // <-- IMPORTING YOUR ACTUAL DATA
+import { notariesData } from "@/data/notaries"; 
 
 const createPin = (status: "Approved" | "Pending") => {
   const color = status === "Approved" ? "#003A6C" : "#ef4444"; 
@@ -12,19 +12,18 @@ const createPin = (status: "Approved" | "Pending") => {
     className: "custom-pin",
     html: `<div style="
       background-color: ${color}; 
-      width: 20px; 
-      height: 20px; 
+      width: 24px; 
+      height: 24px; 
       border-radius: 50%; 
       border: 3px solid white; 
-      box-shadow: 0 2px 4px rgba(0,0,0,0.4);
+      box-shadow: 0 4px 6px rgba(0,0,0,0.3);
     "></div>`,
-    iconSize: [20, 20],
-    iconAnchor: [10, 10], 
+    iconSize: [24, 24],
+    iconAnchor: [12, 12], 
   });
 };
 
 export default function MapView() {
-  // Centered slightly between Katipunan and Batasan
   const mapCenter: [number, number] = [14.6500, 121.0800]; 
 
   return (
@@ -40,22 +39,45 @@ export default function MapView() {
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
 
-        {/* MAPPING OVER YOUR NEW DATA FILE */}
         {notariesData.map((notary) => (
           <Marker 
             key={notary.id} 
             position={[notary.lat, notary.lng]} 
             icon={createPin(notary.status)}
           >
-            <Popup className="rounded-xl shadow-lg">
-              <div className="p-1">
-                <h3 className="font-bold text-[#003A6C]">{notary.name}</h3>
-                <p className="text-xs text-gray-500 mt-1">{notary.address}</p>
-                <p className="text-sm font-semibold mt-2">Fee: {notary.fee}</p>
-                {notary.status === "Pending" && (
-                  <span className="inline-block mt-2 px-2 py-1 bg-red-100 text-red-700 text-xs font-semibold rounded-full">
-                    Needs Admin Review
-                  </span>
+            <Popup className="rounded-xl shadow-xl p-0 custom-popup">
+              <div className="flex flex-col gap-2 p-2 w-[280px]">
+                {/* Header Section */}
+                <div>
+                  <h3 className="font-bold text-lg leading-tight text-[#003A6C]">{notary.name}</h3>
+                  <p className="text-xs text-gray-500 mt-1">{notary.address}</p>
+                </div>
+
+                <hr className="border-gray-200" />
+
+                {/* Details Section */}
+                <div className="text-sm flex flex-col gap-1">
+                  <p><span className="font-semibold text-gray-700">Fee:</span> <span className="text-green-700 font-bold">{notary.fee}</span></p>
+                  {notary.hours !== "Not specified" && <p><span className="font-semibold text-gray-700">Hours:</span> {notary.hours}</p>}
+                  {notary.contact !== "Not specified" && <p><span className="font-semibold text-gray-700">Contact:</span> {notary.contact}</p>}
+                  {notary.landmarks && <p><span className="font-semibold text-gray-700">Landmark:</span> {notary.landmarks}</p>}
+                </div>
+
+                {/* Payments Section */}
+                <div className="flex flex-wrap gap-1 mt-1">
+                  {notary.payments.map(method => (
+                    <span key={method} className="px-2 py-0.5 bg-blue-50 text-[#003A6C] border border-blue-200 rounded-md text-xs font-medium">
+                      {method}
+                    </span>
+                  ))}
+                </div>
+
+                {/* Scholar Feedback Section */}
+                {notary.feedback && (
+                  <div className="mt-2 bg-yellow-50 border border-yellow-200 p-2 rounded-md">
+                    <p className="text-xs font-bold text-yellow-800 mb-1">Scholar Feedback:</p>
+                    <p className="text-xs text-yellow-700 italic">"{notary.feedback}"</p>
+                  </div>
                 )}
               </div>
             </Popup>
