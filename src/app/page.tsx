@@ -1,52 +1,26 @@
-"use client";
+import { mockLocations } from "../data/mock-locations";
+import { PublicMapShell } from "../components/map/public-map-shell";
+import { LocationList } from "../components/locations/location-list";
 
-import { useState } from "react";
-import dynamic from "next/dynamic";
-import ListView from "@/components/ListView";
-// import Header from "@/components/Header";
-// import ListView from "@/components/ListView";
-
-// CRITICAL: This dynamically imports the map so it doesn't crash Next.js SSR
-const MapView = dynamic(() => import("@/components/MapView"), {
-  ssr: false,
-  loading: () => <div className="flex h-full w-full items-center justify-center bg-gray-100 text-brand-blue">Loading Map...</div>
-});
-
-export default function Home() {
-  const [activeView, setActiveView] = useState<"map" | "list">("map");
-
+export default function HomePage() {
   return (
-    <main className="flex h-screen flex-col bg-white">
-      {/* Header component will go here */}
-      <div className="p-4 border-b relative z-20 bg-white">
-         <h1 className="text-2xl font-bold text-brand-blue">SSB Directory</h1>
-      </div>
+    <main className="min-h-screen bg-slate-50">
+      <div className="mx-auto flex w-full max-w-7xl flex-col gap-6 px-4 py-6 md:px-6">
+        <section className="space-y-2">
+          <h1 className="text-3xl font-bold tracking-tight text-slate-900">
+            SSB Notary Directory
+          </h1>
+          <p className="max-w-2xl text-slate-600">
+            Find nearby notary public offices with student-friendly information.
+          </p>
+        </section>
 
-      {/* The Toggle Switch */}
-      <div className="flex justify-center p-3 bg-brand-light relative z-20">
-        <div className="flex bg-white rounded-full shadow-sm p-1">
-          <button 
-            onClick={() => setActiveView("map")}
-            className={`px-6 py-2 rounded-full text-sm font-medium transition-colors ${activeView === "map" ? "bg-brand-blue text-white" : "text-gray-600"}`}
-          >
-            Map View
-          </button>
-          <button 
-            onClick={() => setActiveView("list")}
-            className={`px-6 py-2 rounded-full text-sm font-medium transition-colors ${activeView === "list" ? "bg-brand-blue text-white" : "text-gray-600"}`}
-          >
-            List View
-          </button>
-        </div>
-      </div>
+        <PublicMapShell locations={mockLocations} />
 
-      {/* The Dynamic Content Area */}
-      <div className="flex-grow relative min-h-[500px]">
-        {activeView === "map" ? (
-          <MapView />
-        ) : (
-          <ListView />
-        )}
+        <section className="space-y-3">
+          <h2 className="text-xl font-semibold text-slate-900">Nearby locations</h2>
+          <LocationList locations={mockLocations} />
+        </section>
       </div>
     </main>
   );
