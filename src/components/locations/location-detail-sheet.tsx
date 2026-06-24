@@ -48,11 +48,12 @@ export function LocationDetailSheet({ location, onClose }: LocationDetailSheetPr
             <h3 className="text-xs font-bold text-[#003A6C]/50 uppercase tracking-wider">Location</h3>
             <div className="flex items-start gap-3 text-slate-700 text-sm bg-white p-4 rounded-xl border border-[#003A6C]/10 shadow-sm">
               <MapPin className="w-5 h-5 text-[#F2A900] shrink-0 mt-0.5" />
-              <div className="break-words w-full">
-                <p className="font-medium text-[#003A6C]">{location.raw_address}</p>
+              {/* Added min-w-0 and flex-1 here to force wrapping */}
+              <div className="overflow-hidden break-words w-full">
+                <p>{location.raw_address}</p>
                 {location.raw_landmarks && (
-                  <p className="text-[#003A6C]/70 text-xs mt-1.5 flex items-center gap-1">
-                    <span className="font-bold">Landmark:</span> {location.raw_landmarks}
+                  <p className="text-slate-500 text-xs mt-1 italic">
+                    Landmark: {location.raw_landmarks}
                   </p>
                 )}
               </div>
