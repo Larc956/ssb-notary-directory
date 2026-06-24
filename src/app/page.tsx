@@ -40,7 +40,7 @@ export default async function HomePage() {
           </div>
 
           {/* Title & Motto */}
-          <div className="space-y-2 -mt-16 md:-mt-6 relative z-20">
+          <div className="space-y-2 -mt-10 md:-mt-6 relative z-20">
             <h1 
               className="text-4xl md:text-5xl lg:text-6xl font-bold text-white tracking-tight drop-shadow-md"
               style={{ fontFamily: "'Garet', sans-serif" }}
